@@ -1,0 +1,9 @@
+BEGIN
+  INSERT INTO DEMO_PRODUCT_INFO 
+    (product_name, filename, mimetype, image_last_update, Product_image) 
+  VALUES 
+    (:P66_PRODUCTO, :P66_ARCHIVO||'.jpg',  'image/jpeg', sysdate, (SELECT blob001 FROM apex_collections WHERE collection_name = 'SNAPSHOT'));
+  IF apex_collection.collection_exists(p_collection_name => 'SNAPSHOT') THEN
+    apex_collection.delete_collection(p_collection_name => 'SNAPSHOT');
+  END IF;
+END;

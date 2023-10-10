@@ -1,0 +1,10 @@
+declare
+  product_image constant apex_collections.collection_name%type := 'SNAPSHOT';
+begin
+  if not apex_collection.collection_exists(product_image) then
+    apex_collection.create_collection(p_collection_name => product_image);
+  ELSE
+    apex_collection.delete_collection(p_collection_name => 'SNAPSHOT');
+    apex_collection.create_collection(p_collection_name => product_image);
+  end if;
+end;

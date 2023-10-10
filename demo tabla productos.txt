@@ -1,0 +1,9 @@
+-- Create table
+create table DEMO_PRODUCT_INFO
+(
+  product_name      VARCHAR2(100),
+  filename          VARCHAR2(50),
+  mimetype          VARCHAR2(50),
+  image_last_update DATE,
+  product_image     BLOB
+)

@@ -1,0 +1,41 @@
+declare
+  V_picture_clob clob;
+  V_picture_blob blob;
+begin
+  V_picture_clob := apex_application.g_clob_01;
+ 
+  V_picture_blob := apex_web_service.clobbase642blob(
+     p_clob => V_picture_clob
+  );
+ 
+  apex_collection.add_member(
+    p_collection_name => 'SNAPSHOT',
+    p_blob001 => V_picture_blob
+  );
+ 
+  apex_json.open_object;
+  apex_json.write(
+    p_name => 'result',
+    p_value => 'success'
+  );
+  apex_json.close_object;
+  
+  BEGIN
+  INSERT INTO adcs.DEMO_PRODUCT_INFO 
+    (product_name, filename, mimetype, image_last_update, Product_image) 
+  VALUES 
+    (:P66_PRODUCTO, :P66_ARCHIVO||'.jpg',  'image/jpeg', sysdate, (SELECT blob001 FROM apex_collections WHERE collection_name = 'SNAPSHOT'));
+  IF apex_collection.collection_exists(p_collection_name => 'SNAPSHOT') THEN
+    apex_collection.delete_collection(p_collection_name => 'SNAPSHOT');
+  END IF;
+END;
+  
+exception
+  when others then
+    apex_json.open_object;
+    apex_json.write(
+      p_name => 'result',
+      p_value => 'fail'
+    );
+    apex_json.close_object;
+end;

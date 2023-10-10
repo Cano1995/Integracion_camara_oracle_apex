@@ -1,0 +1,13 @@
+#APP_IMAGES#spin.min.js
+
+
+
+var video = document.getElementById('myVideo');
+var streamVideo;
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+var spinner;
+var spinForm = document.getElementById('wwvFlowForm');
+var spinAttr = {
+position: 'absolute', className: 'spinner', lines: 10, width: 10,  length: 30, top: '50%', left: '50%', radius: 40, opacity: 0.10, speed: 1, color: '#ffffff', rotate: 0
+}

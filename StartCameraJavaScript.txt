@@ -1,0 +1,41 @@
+
+// Usar cámara frontal
+// Comprobar si el navegador soporta la API mediaDevices
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
+// obtener acceso a la cámara del dispositivo
+{ navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) 
+  {
+    // mostrar la camara
+    streamVideo = stream;
+    video.srcObject = stream;
+    video.play();
+  }).catch(error => {
+      // si hay error
+      console.log(error);
+  });
+} else {
+  // el navegador no es compatible con la API mediaDevices
+  console.log("Su navegador no soporta la API MediaDevices.");
+}
+
+/*
+
+// Usar cámara trasera
+// Comprobar si el navegador soporta la API mediaDevices
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) 
+// obtener acceso a la cámara del dispositivo
+{ navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) 
+  {
+    // mostrar la camara
+    streamVideo = stream;
+    video.srcObject = stream;
+    video.play();
+  }).catch(error => {
+      // handle error
+      console.log(error);
+    });
+} else {
+  // Su navegador no soporta la API MediaDevices
+  console.log("Su navegador no soporta la API MediaDevices.");
+}
+*/

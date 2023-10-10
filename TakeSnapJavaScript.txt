@@ -1,0 +1,24 @@
+mySpinner = new Spinner(spinAttr).spin(spinForm);
+ctx.drawImage(video, 0, 0, 250, 300);
+video.style.display = 'none';
+canvas.style.display = 'inline-block';
+streamVideo.getTracks()[0].stop();
+
+apex.server.process
+(
+    'GRAB_PICTURE',
+    {
+        p_clob_01: canvas.toDataURL().match(/,(.*)$/)[1],
+    
+          pageItems: '#P66_ARCHIVO,#P66_PRODUCTO'},
+        
+    {success: function(data) 
+         {
+              if (data.result == 'success')
+              {
+                   apex.submit('TAKESNAP');
+              }else
+             {console.log('Error '+data.result);}
+        }
+    }
+);
